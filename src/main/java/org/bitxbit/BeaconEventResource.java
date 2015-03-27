@@ -1,6 +1,7 @@
 package org.bitxbit;
 
 import org.bitxbit.model.BeaconEvent;
+import org.bitxbit.model.Result;
 import org.bitxbit.model.Tweet;
 import org.bitxbit.model.BeaconEventDao;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -17,16 +18,16 @@ import static java.net.URI.create;
 @Path("beacon")
 public class BeaconEventResource {
     @GET
-    @Path("/visits")
+    @Path("/counts")
     @Produces(MediaType.APPLICATION_JSON)
-    public int getVisits() {
+    public Result getVisits() {
         BeaconEventDao dao = new BeaconEventDao();
-        return dao.getNumVisits();
+        return dao.getCounts();
     }
 
     @POST
     @Path("/event")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON})
     public Response setBeaconEvent(InputStream is) {
         try {
             BeaconEvent event = new ObjectMapper().readValue(is, BeaconEvent.class);

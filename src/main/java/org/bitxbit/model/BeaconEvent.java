@@ -22,8 +22,8 @@ public class BeaconEvent {
 
     @JsonCreator
     public BeaconEvent(@JsonProperty("b_id_1") String beaconId1, @JsonProperty("b_id_2") int beaconId2,
-                       @JsonProperty("b_id_3") int beaconId3, @JsonProperty("visit") boolean visit,
-                       @JsonProperty("conv") boolean conversion) {
+                       @JsonProperty("b_id_3") int beaconId3, @JsonProperty("prospects") boolean visit,
+                       @JsonProperty("purchases") boolean conversion) {
         this.beaconId1 = beaconId1;
         this.beaconId2 = beaconId2;
         this.beaconId3 = beaconId3;

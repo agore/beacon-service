@@ -55,26 +55,34 @@ public class BeaconEventDao {
         return 0;
     }
 
-    public int getNumVisits() {
+    public Result getCounts() {
+        Result result = new Result();
         Connection con = getConnection();
-        if (con == null) return 0;
+        if (con == null) return result;
         Statement stmt = null;
         ResultSet rs = null;
+        ResultSet rs1 = null;
 
         try {
             stmt = con.createStatement();
+
             rs = stmt.executeQuery("select count(*) from beaconevent where visit=1");
             rs.next();
-            int c = rs.getInt(0);
-            return c;
+            result.setProspects(rs.getInt(1));
+
+            rs1 = stmt.executeQuery("select count(*) from beaconevent where conversion=1");
+            rs1.next();
+            result.setPurchases(rs1.getInt(1));
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try { if (rs != null) rs.close();}catch(Exception e) {}
+            try { if (rs1 != null) rs1.close();}catch(Exception e) {}
             try { if (stmt != null) stmt.close();}catch(Exception e) {}
             try { if (con != null) con.close();}catch(Exception e) {}
         }
 
-        return 0;
+        return result;
     }
 }
